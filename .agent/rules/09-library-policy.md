@@ -31,6 +31,7 @@
 ### 개발 도구
 - ✅ **ESLint** - 린팅
 - ✅ **Prettier** (선택) - 포맷팅
+- ✅ **Storybook** - UI 컴포넌트 개발 및 테스트
 
 ---
 
@@ -50,6 +51,9 @@ npm install clsx tailwind-merge class-variance-authority
 npm install lucide-react
 # 또는
 npm install react-icons
+
+# 개발 도구
+npx storybook@latest init
 ```
 
 ---
