@@ -25,6 +25,7 @@
 8. **[기타 권장 사항](rules/08-best-practices.md)** - 환경 변수, 성능 최적화, 접근성, PR 체크리스트
 9. **[라이브러리 사용 원칙](rules/09-library-policy.md)** - 직접 구현 우선, 허용/금지 라이브러리 목록
 10. **[AI 주도 개발 원칙](rules/10-ai-driven-development.md)** - 바이브 코딩, AI 역할, 작업 흐름
+11. **[Storybook 사용 가이드](rules/11-storybook.md)** - UI 컴포넌트 개발 및 테스트
 
 ---
 
