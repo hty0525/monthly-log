@@ -28,6 +28,7 @@
 13. [Quality Checklist](rules/13-quality-checklist.md) ⭐ NEW
 14. [Git Workflow](rules/14-git-workflow.md) ⭐ NEW
 15. [Efficiency Rules](rules/efficiency.md) ⭐ NEW
+16. [Error Logging](rules/16-error-logging.md) ⭐ NEW
 
 ## 중요: 작업 완료 전 필수 체크
 
