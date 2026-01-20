@@ -44,7 +44,7 @@ git checkout -b feat/기능명
 ```bash
 # 작업 후 커밋
 git add .
-git commit -m "feat: 기능 설명"
+git commit -m "기능: 사용자 프로필 추가"
 
 # 원격에 푸시
 git push -u origin feat/기능명
@@ -75,21 +75,22 @@ git push origin --delete feat/기능명  # 원격 브랜치 삭제
 ```
 
 ### 타입
-- `feat`: 새로운 기능
-- `fix`: 버그 수정
-- `docs`: 문서 변경
-- `style`: 코드 포맷팅 (기능 변경 없음)
-- `refactor`: 리팩토링
-- `test`: 테스트 추가/수정
-- `chore`: 빌드, 설정 변경
-- `perf`: 성능 개선
+- `기능`: 새로운 기능
+- `수정`: 기존 기능 개선
+- `버그`: 버그 수정
+- `스타일`: 코드 포맷팅 (기능 변경 없음)
+- `리팩토링`: 코드 구조 개선 (기능 변경 없음)
+- `테스트`: 테스트 추가/수정
+- `문서`: 문서 변경
+- `설정`: 빌드, 설정 변경
+- `성능`: 성능 개선
 
 ### 예시
 ```bash
 # 좋은 예
-git commit -m "feat: 사용자 로그인 기능 추가"
-git commit -m "fix: 로그인 시 토큰 만료 오류 수정"
-git commit -m "docs: README에 설치 가이드 추가"
+git commit -m "기능: 사용자 로그인 기능 추가"
+git commit -m "수정: 로그인 버튼 스타일 개선"
+git commit -m "문서: README에 설치 가이드 추가"
 
 # 나쁜 예
 git commit -m "수정"
@@ -137,6 +138,7 @@ PR 생성 전:
 - [ ] develop 브랜치와 충돌이 없는가?
 - [ ] 빌드가 성공하는가?
 - [ ] 테스트가 통과하는가?
+- [ ] **에이전트(AI)의 경우**: [Quality Checklist](13-quality-checklist.md)를 통한 자가진단이 완료되었는가?
 
 ## AI 작업 시 주의사항
 
