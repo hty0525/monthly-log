@@ -43,25 +43,37 @@
   ❌ formatDate.ts
   ```
 
-## Import 순서
-1. React 및 Next.js 관련
-2. 외부 라이브러리
-3. `@/shared` (공통 모듈)
-4. `@/features` (기능별 모듈)
-5. 상대 경로 import
-6. 타입 import (마지막)
-7. 스타일 import (최하단)
+## Import 순서 및 형식
+
+### 1. Import 형식
+- 타입 임포트 시 반드시 `import type { ... }` 형식을 사용하며, 항상 파일의 **최하단(스타일 제외)**에 배치합니다.
+
+### 2. Import 순서
+상단부터 아래의 순서대로 그룹화하여 작성하며, 각 그룹 사이에는 한 줄의 공백을 둡니다.
+
+1. **라이브러리**: React, Next.js 및 외부 라이브러리
+2. **훅**: 커스텀 훅 (`use-`로 시작하는 파일)
+3. **유틸리티**: 공통 유틸리티 함수 (`shared/lib` 등)
+4. **상수**: 프로젝트 전역 또는 지역 상수
+5. **컴포넌트**: 공통 혹은 기능별 UI 컴포넌트
+6. **타입**: `import type`을 사용한 타입 정의 (최하단)
+7. **스타일**: `.css`, `.scss` 등 스타일 파일 (최하단)
 
 ```typescript
 // ✅ Good
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { format } from 'date-fns';
+import { clsx } from 'clsx'; // 라이브러리
 
-import { Button } from '@/shared/components/button';
-import { useAuth } from '@/features/auth/hooks/use-auth';
+import { useAuth } from '@/features/auth/hooks/use-auth'; // 훅
+
+import { formatDate } from '@/shared/lib/utils'; // 유틸리티
+
+import { API_ENDPOINT } from '@/shared/constants/api'; // 상수
+
+import { Button } from '@/shared/components/button'; // 컴포넌트
 import { UserCard } from './user-card';
 
-import type { User } from '@/shared/types/user';
-import './styles.css';
+import type { User, UserRole } from '@/shared/types/user'; // 타입 (최하단)
+import './styles.css'; // 스타일 (최하단)
 ```
