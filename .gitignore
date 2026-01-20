@@ -42,3 +42,6 @@ next-env.d.ts
 
 # MCP sensitive files
 .agent/mcp_config.json
+
+*storybook.log
+storybook-static
