@@ -26,11 +26,14 @@
 11. [Storybook](rules/11-storybook.md)
 12. [Reusability & Efficiency](rules/12-reusability-efficiency.md) ⭐ NEW
 13. [Quality Checklist](rules/13-quality-checklist.md) ⭐ NEW
-14. [Efficiency Rules](rules/efficiency.md) ⭐ NEW
+14. [Git Workflow](rules/14-git-workflow.md) ⭐ NEW
+15. [Efficiency Rules](rules/efficiency.md) ⭐ NEW
 
 ## 중요: 작업 완료 전 필수 체크
 
 **모든 코딩 작업을 완료한 후, 반드시 [Quality Checklist](rules/13-quality-checklist.md)를 실행하세요.**
+
+**모든 작업은 반드시 새 브랜치에서 진행하세요. [Git Workflow](rules/14-git-workflow.md) 참고**
 
 이 체크리스트는 다음을 확인합니다:
 - 코드 재사용성
