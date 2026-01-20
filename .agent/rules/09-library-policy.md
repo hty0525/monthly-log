@@ -29,6 +29,7 @@
 - ✅ **class-variance-authority** - Variant 관리
 
 ### 개발 도구
+- ✅ **pnpm** - 패키지 매니저
 - ✅ **ESLint** - 린팅
 - ✅ **Prettier** (선택) - 포맷팅
 - ✅ **Storybook** - UI 컴포넌트 개발 및 테스트
@@ -37,23 +38,25 @@
 
 ## 필수 패키지 설치
 
+**패키지 매니저**: pnpm 사용
+
 ```bash
 # 핵심 라이브러리
-npm install @supabase/ssr @tanstack/react-query zustand
+pnpm install @supabase/ssr @tanstack/react-query zustand
 
 # 폼 관리
-npm install react-hook-form zod @hookform/resolvers
+pnpm install react-hook-form zod @hookform/resolvers
 
 # 스타일링
-npm install clsx tailwind-merge class-variance-authority
+pnpm install clsx tailwind-merge class-variance-authority
 
 # 아이콘
-npm install lucide-react
+pnpm install lucide-react
 # 또는
-npm install react-icons
+pnpm install react-icons
 
 # 개발 도구
-npx storybook@latest init
+pnpm dlx storybook@latest init
 ```
 
 ---
