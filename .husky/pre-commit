@@ -1,0 +1,1 @@
+pnpm exec eslint . && pnpm exec tsc --noEmit
