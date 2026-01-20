@@ -52,6 +52,7 @@ git push -u origin feat/기능명
 
 ### 3. PR 생성
 - GitHub에서 `feat/기능명` → `develop` PR 생성
+- **[중요]** 반드시 `.github/pull_request_template.md`의 내용을 기반으로 작성한다.
 - 코드 리뷰 후 병합
 - 병합 후 로컬 브랜치 삭제
 
