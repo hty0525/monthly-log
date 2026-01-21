@@ -77,3 +77,93 @@ import { UserCard } from './user-card';
 import type { User, UserRole } from '@/shared/types/user'; // 타입 (최하단)
 import './styles.css'; // 스타일 (최하단)
 ```
+
+## 컴포넌트 구조
+
+### 폴더 구조
+- 컴포넌트가 wrapper 역할을 하고 하위 컴포넌트를 포함하는 경우, 폴더로 구성합니다.
+  ```
+  ✅ Good
+  app/_components/
+  ├── main-content/
+  │   ├── index.tsx          (MainContent - wrapper)
+  │   ├── sidebar.tsx        (Sidebar)
+  │   └── post-list-client.tsx (PostListClient)
+  
+  ❌ Bad
+  app/_components/
+  ├── main-content.tsx
+  ├── sidebar.tsx
+  └── post-list-client.tsx
+  ```
+
+### CSR/SSR 분리
+- **서버 컴포넌트 (SSR)**: 데이터 페칭, 정적 UI
+- **클라이언트 컴포넌트 (CSR)**: 상태 관리, 이벤트 핸들러가 필요한 부분만
+- 불필요하게 전체를 CSR로 만들지 않습니다.
+  ```typescript
+  // ✅ Good - 필요한 부분만 CSR
+  // app/page.tsx (SSR)
+  export default async function Page() {
+    const data = await fetchData();
+    return <ClientComponent data={data} />;
+  }
+  
+  // app/_components/client-component.tsx (CSR)
+  'use client';
+  export const ClientComponent = ({ data }) => {
+    const [state, setState] = useState();
+    return <div onClick={...}>...</div>;
+  };
+  
+  // ❌ Bad - 전체를 CSR로
+  'use client';
+  export default function Page() {
+    const [state, setState] = useState();
+    return <div>...</div>;
+  }
+  ```
+
+## 변수 추출
+
+### 이벤트 핸들러
+- 인라인 함수 대신 변수로 추출합니다.
+  ```typescript
+  // ✅ Good
+  const handleClick = (id: string) => {
+    console.log('clicked:', id);
+  };
+  <button onClick={() => handleClick(item.id)}>Click</button>
+  
+  // ❌ Bad
+  <button onClick={() => console.log('clicked:', item.id)}>Click</button>
+  ```
+
+### 텍스트 및 계산된 값
+- JSX 내부의 복잡한 표현식은 변수로 추출합니다.
+  ```typescript
+  // ✅ Good
+  const title = selectedDate
+    ? `${selectedDate.getMonth() + 1}월 ${selectedDate.getDate()}일 활동`
+    : '전체 활동';
+  const postCountText = `${posts.length}개의 글`;
+  
+  return (
+    <div>
+      <h2>{title}</h2>
+      <p>{postCountText}</p>
+    </div>
+  );
+  
+  // ❌ Bad
+  return (
+    <div>
+      <h2>
+        {selectedDate
+          ? `${selectedDate.getMonth() + 1}월 ${selectedDate.getDate()}일 활동`
+          : '전체 활동'}
+      </h2>
+      <p>{posts.length}개의 글</p>
+    </div>
+  );
+  ```
