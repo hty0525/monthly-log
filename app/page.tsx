@@ -1,6 +1,4 @@
-import { MonthlyCalendar } from '@/features/dashboard/components/monthly-calendar';
-import { PersonalProgressWidget } from '@/features/dashboard/components/personal-progress-widget';
-import { PostListClient } from './_components/post-list-client';
+import { MainContent } from './_components/main-content';
 
 import type { Post } from '@/features/posts/components/post-card';
 
@@ -59,39 +57,6 @@ async function getUserProgress() {
 export default async function Home() {
   // 서버 컴포넌트에서 데이터 페칭
   const [posts, userProgress] = await Promise.all([getPosts(), getUserProgress()]);
-  const now = new Date();
 
-  return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="border-b bg-white">
-        <div className="container mx-auto px-4 py-4">
-          <h1 className="text-2xl font-bold">월간로그</h1>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-          {/* Left Column: Calendar + Progress (SSR) */}
-          <div className="space-y-6 lg:col-span-1">
-            {/* Personal Progress Widget */}
-            <PersonalProgressWidget
-              postCount={userProgress.postCount}
-              commentCount={userProgress.commentCount}
-            />
-
-            {/* Monthly Calendar */}
-            <MonthlyCalendar
-              year={now.getFullYear()}
-              month={now.getMonth() + 1}
-            />
-          </div>
-
-          {/* Right Column: Post List (CSR) */}
-          <PostListClient posts={posts} />
-        </div>
-      </main>
-    </div>
-  );
+  return <MainContent posts={posts} userProgress={userProgress} />;
 }
