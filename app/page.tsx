@@ -1,63 +1,95 @@
-import Image from "next/image";
+import { MonthlyCalendar } from '@/features/dashboard/components/monthly-calendar';
+import { PersonalProgressWidget } from '@/features/dashboard/components/personal-progress-widget';
+import { PostListClient } from './_components/post-list-client';
 
-export default function Home() {
+import type { Post } from '@/features/posts/components/post-card';
+
+// TODO: Supabase에서 실제 데이터 가져오기
+async function getPosts(): Promise<Post[]> {
+  // 서버에서 데이터 페칭 (SSR)
+  return [
+    {
+      id: '1',
+      title: 'Next.js 14 App Router 완벽 가이드',
+      url: 'https://example.com/nextjs-app-router-guide',
+      description:
+        'Next.js 14의 App Router를 사용하여 현대적인 웹 애플리케이션을 구축하는 방법을 알아봅니다.',
+      author: {
+        name: '홍길동',
+        avatarUrl: 'https://github.com/shadcn.png',
+      },
+      createdAt: new Date(2024, 0, 15),
+      commentCount: 5,
+    },
+    {
+      id: '2',
+      title: 'TypeScript 5.0 새로운 기능 살펴보기',
+      url: 'https://example.com/typescript-5-features',
+      description:
+        'TypeScript 5.0에서 추가된 새로운 기능들을 실전 예제와 함께 알아봅니다.',
+      author: {
+        name: '김철수',
+      },
+      createdAt: new Date(2024, 0, 14),
+      commentCount: 3,
+    },
+    {
+      id: '3',
+      title: 'React Server Components 이해하기',
+      url: 'https://example.com/react-server-components',
+      author: {
+        name: '이영희',
+        avatarUrl: 'https://github.com/shadcn.png',
+      },
+      createdAt: new Date(2024, 0, 13),
+      commentCount: 8,
+    },
+  ];
+}
+
+// TODO: Supabase에서 사용자 진행률 가져오기
+async function getUserProgress() {
+  // 서버에서 데이터 페칭 (SSR)
+  return {
+    postCount: 1,
+    commentCount: 5,
+  };
+}
+
+export default async function Home() {
+  // 서버 컴포넌트에서 데이터 페칭
+  const [posts, userProgress] = await Promise.all([getPosts(), getUserProgress()]);
+  const now = new Date();
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="border-b bg-white">
+        <div className="container mx-auto px-4 py-4">
+          <h1 className="text-2xl font-bold">월간로그</h1>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+      </header>
+
+      {/* Main Content */}
+      <main className="container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+          {/* Left Column: Calendar + Progress (SSR) */}
+          <div className="space-y-6 lg:col-span-1">
+            {/* Personal Progress Widget */}
+            <PersonalProgressWidget
+              postCount={userProgress.postCount}
+              commentCount={userProgress.commentCount}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+            {/* Monthly Calendar */}
+            <MonthlyCalendar
+              year={now.getFullYear()}
+              month={now.getMonth() + 1}
+            />
+          </div>
+
+          {/* Right Column: Post List (CSR) */}
+          <PostListClient posts={posts} />
         </div>
       </main>
     </div>
